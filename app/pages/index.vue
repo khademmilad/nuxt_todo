@@ -1,11 +1,19 @@
+<script setup lang="ts">
+const inputValue = ref('');
+
+const handleSubmit = () => {
+  alert(`Submitted value: ${inputValue.value}`);
+};
+</script>
+
 <template>
-  <header>
-    <nav>
-      <ul>
-        <li><NuxtLink to="/about">About</NuxtLink></li>
-        <!-- <li><NuxtLink to="/posts/1">Post 1</NuxtLink></li>
-        <li><NuxtLink to="/posts/2">Post 2</NuxtLink></li> -->
-      </ul>
-    </nav>
-  </header>
+  <div>
+    <h2>Home Page</h2>
+    <p>This content should appear inside the default layout</p>
+  </div>
+  <BaseButton @click="handleSubmit">Click Me</BaseButton>
+  <BaseInput
+    v-model:modalValue="inputValue"
+    placeholder="Enter some text"
+  />
 </template>
