@@ -1,19 +1,30 @@
 <script setup lang="ts">
-const inputValue = ref('');
+import {  useTodoStore } from '~/server/store/useTodoStore';
+import { onMounted, ref, computed } from 'vue';
 
-const handleSubmit = () => {
-  alert(`Submitted value: ${inputValue.value}`);
+const todoStore = useTodoStore();
+
+const todos = ref<Todo[]>([]);
+const filter = ref<'all' | 'active' | 'completed'>('all');
+
+const fetchTodos = async () => {
+    await todoStore.fetchTodos();
+    todos.value = todoStore.todos;
 };
+
+const filterTodos = computed(() => {
+  if (filter.value === 'active') return todos.value.filter(t => !t.completed);
+  if (filter.value === 'completed') return todos.value.filter(t => t.completed);
+  return todos.value;
+})
+
 </script>
 
 <template>
-  <div>
-    <h2>Home Page</h2>
-    <p>This content should appear inside the default layout</p>
-  </div>
-  <BaseButton @click="handleSubmit">Click Me</BaseButton>
-  <BaseInput
-    v-model:modelValue="inputValue"
-    placeholder="Enter some text"
+  <BaseButton 
+    v-for="f in ['all', 'active', 'completed']"
+    :key="f"
+    @click="filter = f"
   />
 </template>
+
