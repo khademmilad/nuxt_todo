@@ -6,22 +6,24 @@ export const useTodoStore = defineStore('todo', {
     todos: [] as any[]
     }),
     actions: {
-        async fetchTodos() {
+        // Get config once an reuse
+        getApiUrl(endpoint: string = '') {
             const config = useRuntimeConfig();
-            const res = await $fetch<any[]>(`${config.public.apiBase}/todos`);
+            return `${config.public.apiBase}/todos/${endpoint}`;
+        },
+        async fetchTodos() {
+            const res = await $fetch<any[]>(this.getApiUrl());
             this.todos = res;
         },
         async addTodo(payload: { title: string }) {
-            const config = useRuntimeConfig();
-            await $fetch(`${config.public.apiBase}/todos`, {
+            await $fetch(this.getApiUrl(), {
                 method: 'POST',
                 body: payload
             })
         },
         async deleteTodo(id: number) {
-            const config = useRuntimeConfig();
             try {
-                await $fetch(`${config.public.apiBase}/todos/${id}`, {
+                await $fetch(this.getApiUrl(`/${id}`), {
                     method: 'DELETE'
                 })
             } catch (error) {
@@ -29,8 +31,7 @@ export const useTodoStore = defineStore('todo', {
             }
         },
         async toggleTodo(id: number) {
-            const config = useRuntimeConfig();
-            await $fetch(`${config.public.apiBase}/todos/${id}`, {
+            await $fetch(this.getApiUrl(`/${id}`), {
                 method: 'PATCH'
             })
         }

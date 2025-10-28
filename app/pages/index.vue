@@ -13,7 +13,7 @@ const handleSubmit = () => {
   </div>
   <BaseButton @click="handleSubmit">Click Me</BaseButton>
   <BaseInput
-    v-model:modalValue="inputValue"
+    v-model:modelValue="inputValue"
     placeholder="Enter some text"
   />
 </template>

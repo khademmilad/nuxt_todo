@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-    modalValue: string,
+    modelValue: string,
     placeholder?: string,
     class?: string
 }>();
@@ -9,7 +9,7 @@ const emit = defineEmits(['update:modalValue'])
 
 <template>
 <input
-    :value="props.modalValue"
+    :value="props.modelValue"
     :placeholder="props.placeholder"
     :class="['windows98-input', props.class]"
     @input="emit('update:modalValue', ($event.target as HTMLInputElement).value)"
