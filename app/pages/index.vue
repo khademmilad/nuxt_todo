@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import {  useTodoStore } from '~/server/store/useTodoStore';
+import {  useTodoStore } from '~/store/useTodoStore';
 import { onMounted, ref, computed } from 'vue';
 
 const todoStore = useTodoStore();
+
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
 const todos = ref<Todo[]>([]);
 const filter = ref<'all' | 'active' | 'completed'>('all');
