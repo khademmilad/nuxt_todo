@@ -27,10 +27,13 @@ const filterTodos = computed(() => {
 </script>
 
 <template>
-  <BaseButton 
+  <div class="max-w-2xl mx-auto py-8 px-2 sm:px-4 windows-98-card">
+    <TodoForm @added="fetchTodos" />
+  </div>
+  <!-- <BaseButton 
     v-for="f in ['all', 'active', 'completed']"
     :key="f"
     @click="filter = f"
-  />
+  /> -->
 </template>
 
