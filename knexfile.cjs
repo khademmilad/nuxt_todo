@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = {
     development: {
         client: 'postgresql',
@@ -14,10 +15,10 @@ const config = {
         },
         migrations: {
             tableName: 'knex_migrations',
-            directory: './database/migrations'
+            directory: './migrations'
         },
         seeds: {
-            directory: './database/seeds'
+            directory: './seeds'
         }
     },
     production: {
@@ -35,10 +36,10 @@ const config = {
         },
         migrations: {
             tableName: 'knex_migrations',
-            directory: './database/migrations'
+            directory: './migrations'
         },
         seeds: {
-            directory: './database/seeds'
+            directory: './seeds'
         }
     }
 }
