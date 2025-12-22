@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useTodoStore} from '../store/useTodoStore'
+import { useTodoStore} from '../stores/useTodoStore'
 import { useValidation } from '../composables/useValidation'
 
 const title = ref('')

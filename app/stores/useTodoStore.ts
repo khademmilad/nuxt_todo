@@ -34,6 +34,20 @@ export const useTodoStore = defineStore('todo', {
             await $fetch(this.getApiUrl(`/${id}`), {
                 method: 'PATCH'
             })
+        },
+        async updateTodo(payload: {
+            id: number
+            title: string
+            completed: boolean
+        }) {
+            await $fetch(this.getApiUrl(`/${payload.id}`), {
+                method: 'PUT',
+                body: {
+                    title: payload.title,
+                    completed: payload.completed
+                }
+            })
         }
     }
+
 });
