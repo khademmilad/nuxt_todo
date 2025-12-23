@@ -10,21 +10,19 @@ interface Todo {
   completed: boolean;
 }
 
-const todos = ref<Todo[]>([]);
 const filter = ref<'all' | 'active' | 'completed'>('all');
 
 const fetchTodos = async () => {
     await todoStore.fetchTodos();
-    todos.value = todoStore.todos;
 };
 
 const filterTodos = computed(() => {
-  if (filter.value === 'active') return todos.value.filter(t => !t.completed);
-  if (filter.value === 'completed') return todos.value.filter(t => t.completed);
-  return todos.value;
+  if (filter.value === 'active') return todoStore.todos.filter(t => !t.completed);
+  if (filter.value === 'completed') return todoStore.todos.filter(t => t.completed);
+  return todoStore.todos;
 })
 const clearCompleted = async () => {
-    const completedTodos = todos.value.filter(t => t.completed);
+    const completedTodos = todoStore.todos.filter(t => t.completed);
     for (const todo of completedTodos) {
         await todoStore.deleteTodo(todo.id);
     }

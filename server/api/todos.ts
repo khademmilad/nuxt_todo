@@ -43,6 +43,20 @@ export default defineEventHandler(async (event) => {
         return updated
     }
 
+    // TOGGLE a todo (PATCH)
+    if (method === 'PATCH') {
+        const body = await readBody<{ id: number }>(event)
+        const todo = await db<Todo>('todos').where({ id: body.id }).first()
+        if (todo) {
+            const [updated] = await db('todos')
+                .where({ id: body.id })
+                .update({ completed: !todo.completed })
+                .returning('*')
+            return updated
+        }
+        return { success: false }
+    }
+
     // DELETE a todo
     if (method === 'DELETE') {
         const body = await readBody<{ id: number }>(event)
