@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useTodoStore } from '~/stores/useTodoStore'
-// import Modal from './Modal.vue'
+
 const props = defineProps<{
     todo: {
         id: number
@@ -13,6 +13,7 @@ const emit = defineEmits(['deleted', 'toggled'])
 const store = useTodoStore()
 const showModal = ref(false)
 const editTitle = ref(props.todo.title)
+
 const toggle = async () => {
     await store.toggleTodo(props.todo.id)
     emit('toggled')
@@ -40,6 +41,7 @@ const saveEdit = async () => {
         })
         emit('toggled')
     }
+    showModal.value = false
 }
 
 const closeModal = () => {
@@ -56,10 +58,9 @@ const closeModal = () => {
                 :checked="todo.completed"
                 @change="toggle"
                 class="windows98-checkbox"
-            />
+                />
             <h3
                 :class="['ml-2 text-lg flex-1 cursor-pointer', {'line-through text-gray-400': todo.completed}]"
-                class="flex-1 cursor-pointer"
                 @dblclick="startEdit"
             >{{ todo.title }}
         </h3>
@@ -68,7 +69,8 @@ const closeModal = () => {
             <BaseButton @click="startEdit">Edit</BaseButton>
             <BaseButton @click="remove">Delete</BaseButton>
         </div>
-        <Modal 
+        <Modal
+            v-if="showModal"
             :show="showModal"
             @close="closeModal"
             @save="saveEdit"

@@ -12,11 +12,11 @@ export const useTodoStore = defineStore('todo', {
             return `${config.public.apiBase}/todos/${endpoint}`;
         },
         async fetchTodos() {
-            const res = await $fetch<any[]>(this.getApiUrl());
+            const res = await $fetch<any[]>('/api/todos');
             this.todos = res;
         },
         async addTodo(payload: { title: string }) {
-            await $fetch(this.getApiUrl(), {
+            await $fetch('/api/todos', {
                 method: 'POST',
                 body: payload
             })

@@ -2,7 +2,7 @@ exports.up = function(knex) {
     return knex.schema.createTable('todos', (table) => {
         table.increments('id').primary();
         table.string('title').notNullable();
-        table.text('description').nullable(false);
+        table.text('description').nullable();
         table.boolean('completed').defaultTo(false);
         table.integer('priority').defaultTo(1);
         table.timestamp('due_date').nullable();
