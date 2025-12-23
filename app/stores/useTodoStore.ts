@@ -23,16 +23,18 @@ export const useTodoStore = defineStore('todo', {
         },
         async deleteTodo(id: number) {
             try {
-                await $fetch(this.getApiUrl(`/${id}`), {
-                    method: 'DELETE'
+                await $fetch('/api/todos', {
+                    method: 'DELETE',
+                    body: { id }
                 })
             } catch (error) {
                 console.error('Failed to delete todo:', error);
             }
         },
         async toggleTodo(id: number) {
-            await $fetch(this.getApiUrl(`/${id}`), {
-                method: 'PATCH'
+            await $fetch('/api/todos', {
+                method: 'PATCH',
+                body: { id }
             })
         },
         async updateTodo(payload: {
@@ -40,12 +42,9 @@ export const useTodoStore = defineStore('todo', {
             title: string
             completed: boolean
         }) {
-            await $fetch(this.getApiUrl(`/${payload.id}`), {
+            await $fetch('/api/todos', {
                 method: 'PUT',
-                body: {
-                    title: payload.title,
-                    completed: payload.completed
-                }
+                body: payload
             })
         }
     }
