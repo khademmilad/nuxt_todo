@@ -28,12 +28,7 @@ const startEdit  = () => {
     editTitle.value = props.todo.title
 }
 const saveEdit = async () => {
-    if (!editTitle.value.trim()) {
-        showModal.value = false
-        return
-    }
-
-    if (editTitle.value !== props.todo.title) {
+    if (editTitle.value.trim() && editTitle.value !== props.todo.title) {
         await store.updateTodo({
             id: props.todo.id,
             title: editTitle.value.trim(),
@@ -66,23 +61,19 @@ const closeModal = () => {
         </h3>
         </div>
         <div class="flex gap-2">
-            <BaseButton @click="startEdit">Edit</BaseButton>
-            <BaseButton @click="remove">Delete</BaseButton>
+            <button @click="startEdit" class="windows98-btn">Edit</button>
+            <button @click="remove" class="windows98-btn windows98-btn-danger">Delete</button>
         </div>
-        <Modal
-            v-if="showModal"
-            :show="showModal"
-            @close="closeModal"
-            @save="saveEdit"
-        >
-        <div class="flex flex-col gap-4">
-            <label class="font-bold text-gray-700">Edit Todo</label>
-            <BaseInput 
-                v-model="editTitle" 
-                class="border border-gray-400 rounded px-2 py-1 text-lg bg-white" 
-                autofocus
-            />
-        </div>
+        <Modal :show="showModal" @close="closeModal" @save="saveEdit">
+            <div class="flex flex-col gap-4">
+                <label class="font-bold text-gray-700">Edit Todo</label>
+                <input
+                    v-model="editTitle"
+                    @keyup.enter="saveEdit"
+                    class="border border-gray-400 rounded px-2 py-1 text-lg bg-white"
+                    autofocus
+                />
+            </div>
         </Modal>
     </div>
 </template>

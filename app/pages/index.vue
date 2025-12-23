@@ -32,15 +32,15 @@ onMounted(fetchTodos)
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto py-8 px-2 sm:px-4 windows-98-card">
+  <div class="max-w-2xl mx-auto py-8 px-2 sm:px-4 windows98-card">
     <TodoForm @added="fetchTodos" />
 
     <div class="flex gap-2 justify-center mb-4">
       <BaseButton
         v-for="f in ['all', 'active', 'completed']"
         :key="f"
-        @click="filter = f as 'all' | 'active' | 'completed'"
         :class="filter === f ? 'bg-blue-200 text-blue-900' : 'bg-gray-100 text-gray-700'"
+        @click="filter = f as 'all' | 'active' | 'completed'"
       >
         {{ f.charAt(0).toUpperCase() + f.slice(1) }}
       </BaseButton>
@@ -51,16 +51,16 @@ onMounted(fetchTodos)
         Clear Completed
       </BaseButton>
     </div>
-  </div>
 
-  <div class="grid gap-4">
-    <TodoItem
-      v-for="todo in filterTodos"
-      :key="todo.id"
-      :todo="todo"
-      @deleted="fetchTodos"
-      @toggled="fetchTodos"
-    />
+    <div class="grid gap-4">
+      <TodoItem
+        v-for="todo in filterTodos"
+        :key="todo.id"
+        :todo="todo"
+        @deleted="fetchTodos"
+        @toggled="fetchTodos"
+      />
+    </div>
   </div>
 </template>
 
