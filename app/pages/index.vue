@@ -2,6 +2,13 @@
 import {  useTodoStore } from '~/stores/useTodoStore';
 import { onMounted, ref, computed } from 'vue';
 
+// Protect this page - require authentication
+definePageMeta({
+  middleware: 'auth'
+})
+
+const { status, data: session } = useAuth()
+
 const todoStore = useTodoStore();
 
 interface Todo {
@@ -32,7 +39,9 @@ onMounted(fetchTodos)
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto py-8 px-2 sm:px-4 windows98-card">
+  <div v-if="status === 'authenticated'" class="max-w-2xl mx-auto py-8 px-2 sm:px-4 windows98-card">
+    <h1 class="text-3xl font-bold mb-6 text-center">Welcome {{ session?.user?.name }}!</h1>
+    
     <TodoForm @added="fetchTodos" />
 
     <div class="flex gap-2 justify-center mb-4">
