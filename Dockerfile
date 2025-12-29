@@ -23,6 +23,7 @@ WORKDIR /app
 # Copy built application from builder
 COPY --from=builder /app/.output /app/.output
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/knexfile.cjs ./
 
 # Set environment to production
 ENV NODE_ENV=production

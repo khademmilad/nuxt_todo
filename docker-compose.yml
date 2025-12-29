@@ -1,24 +1,4 @@
 services:
-  # PostgreSQL for Nuxt Todo App
-  postgres-app:
-    image: postgres:16-alpine
-    container_name: nuxt-todo-db
-    environment:
-      POSTGRES_DB: nuxt_todo
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: milad
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres-app-data:/var/lib/postgresql/data
-    networks:
-      - nuxt-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # PostgreSQL for Keycloak
   postgres-keycloak:
     image: postgres:16-alpine
@@ -68,7 +48,7 @@ services:
     container_name: nuxt-todo-app
     environment:
       # Database Configuration
-      DB_HOST: postgres-app
+      DB_HOST: host.docker.internal
       DB_PORT: 5432
       DB_NAME: nuxt_todo
       DB_USER: postgres
@@ -89,8 +69,6 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
-      postgres-app:
-        condition: service_healthy
       keycloak:
         condition: service_started
     networks:
@@ -101,5 +79,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-app-data:
   postgres-keycloak-data:

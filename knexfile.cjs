@@ -1,4 +1,8 @@
-require('dotenv').config();
+// Only load dotenv in development (not in Docker production)
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const config = {
     development: {
         client: 'postgresql',
