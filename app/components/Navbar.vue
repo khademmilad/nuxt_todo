@@ -23,14 +23,36 @@
 </template>
 
 <script setup lang="ts">
+interface ExtendedSession {
+  refreshToken?: string
+  user?: {
+    name?: string
+  }
+}
+
 const { status, data: session, signIn, signOut } = useAuth()
 
 const handleLogin = () => {
   signIn('keycloak')
 }
 
-const handleLogout = () => {
-  signOut({ callbackUrl: '/' })
+const handleLogout = async () => {
+  try {
+    // Get refresh token from session and call Keycloak logout
+    const extendedSession = session.value as ExtendedSession | null
+    if (extendedSession?.refreshToken) {
+      console.log('Logging out from Keycloak...')
+      await $fetch('/api/logout', {
+        method: 'POST',
+        body: { refreshToken: extendedSession.refreshToken }
+      })
+    }
+  } catch (error) {
+    console.error('Keycloak logout error:', error)
+  }
+  
+  // Clear local session and redirect
+  await signOut({ callbackUrl: '/' })
 }
 </script>
 

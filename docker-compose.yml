@@ -32,6 +32,8 @@ services:
       KC_HTTP_ENABLED: "true"
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HOSTNAME_URL: "http://localhost:8080"
+      KC_HOSTNAME_ADMIN_URL: "http://localhost:8080"
     ports:
       - "8080:8080"
     depends_on:
@@ -58,12 +60,12 @@ services:
       API_SECRET: secret
       NODE_ENV: production
       # Authentication Configuration
-      AUTH_SECRET: ${AUTH_SECRET:-mK8fN2pQ7rL9sT3vX6yZ1wE4bH5jC0dA}
-      AUTH_ORIGIN: http://localhost:3000
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_ORIGIN: ${AUTH_ORIGIN}
       # Keycloak Configuration
-      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID:-nuxt-todo-app}
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET:-FpYvVl7LSuDAK60YA4WgRrw1HrVC8rWC}
-      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER:-http://host.docker.internal:8080/realms/nuxt-realm}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
     ports:
       - "3000:3000"
     extra_hosts:
