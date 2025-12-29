@@ -40,7 +40,7 @@ onMounted(fetchTodos)
 
 <template>
   <div v-if="status === 'authenticated'" class="max-w-2xl mx-auto py-8 px-2 sm:px-4 windows98-card">
-    <h1 class="text-3xl font-bold mb-6 text-center">Welcome {{ session?.user?.name }}!</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">My Todos</h1>
     
     <TodoForm @added="fetchTodos" />
 

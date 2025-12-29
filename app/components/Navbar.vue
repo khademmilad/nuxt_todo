@@ -7,7 +7,11 @@
       <div class="nav-links">
         <template v-if="status === 'authenticated'">
           <NuxtLink to="/" class="nav-link">Home</NuxtLink>
+          <NuxtLink to="/about" class="nav-link">About</NuxtLink>
           <NuxtLink to="/profile" class="nav-link">Profile</NuxtLink>
+          <div class="user-info">
+            <span class="user-name">{{ session?.user?.name || 'User' }}</span>
+          </div>
           <button @click="handleLogout" class="btn-logout">Logout</button>
         </template>
         <template v-else>
@@ -19,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-const { status, signIn, signOut } = useAuth()
+const { status, data: session, signIn, signOut } = useAuth()
 
 const handleLogin = () => {
   signIn('keycloak')
@@ -94,5 +98,18 @@ const handleLogout = () => {
 
 .btn-logout:hover {
   background-color: #c0392b;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.user-name {
+  color: white;
+  font-weight: 500;
 }
 </style>
