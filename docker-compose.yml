@@ -86,6 +86,8 @@ services:
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
     ports:
       - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       postgres-nuxt:
         condition: service_healthy

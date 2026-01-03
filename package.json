@@ -12,9 +12,8 @@
   "dependencies": {
     "@pinia/nuxt": "^0.11.2",
     "@sidebase/nuxt-auth": "^0.6.7",
-    "dotenv": "^17.2.3",
     "knex": "^3.1.0",
-    "next-auth": "^4.24.13",
+    "next-auth": "4.21.1",
     "nuxt": "^4.1.2",
     "pg": "^8.16.3",
     "pinia": "^3.0.3",

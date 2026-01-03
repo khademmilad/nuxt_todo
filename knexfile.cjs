@@ -1,6 +1,12 @@
+// Conditionally load dotenv only in development and only if available
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+    try {
+        require('dotenv').config();
+    } catch (e) {
+        // dotenv not available, which is fine if env vars are set another way
+    }
 }
+
 const config = {
     development: {
         client: 'postgresql',

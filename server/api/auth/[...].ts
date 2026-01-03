@@ -56,8 +56,8 @@ export default NuxtAuthHandler({
                 sameSite: 'lax',
                 path: '/',
                 secure: false,
+            },
         },
-     },
     },
     providers: [
         // @ts-expect-error
